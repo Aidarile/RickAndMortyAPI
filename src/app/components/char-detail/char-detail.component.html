@@ -1,0 +1,84 @@
+@defer (when character) {
+    <div class="card shadow mt-5">
+        <div class="card-header bg-primary-subtle" >
+            <div class="card-title text-center py-2 px-1">
+                <div class="row justify-content-center">
+                    <div class="col-10">
+                        <h5> {{character.name}} </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img class= "img-fluid p-3 rounded-circle" src= "{{character.image}}" alt="{{character.name}}">
+            </div>
+            <div class="col-md-4">
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>Gender: </strong>
+                        <span class="text-primary">{{character.gender}}</span>
+                    </p>
+                    <p class="card-text">
+                        <strong>Status: </strong>
+                        <span class="text-primary">{{character.status}}</span>
+                    </p>
+                    <p class="card-text">
+                        <strong>Type: </strong>
+                        @if (character.type !== '') {
+                            <span class="text-primary">{{character.type}}</span>
+                        } @else {
+                            <span class="text-primary">Common human</span>
+                        }                        
+                    </p>
+                    <p class="card-text">
+                        <strong>Specie: </strong>
+                        <span class="text-primary">{{character.species}}</span>
+                    </p>
+                    <p class="card-text">
+                        <strong>Origin: </strong>
+                        <span class="text-primary">{{character.origin.name}}</span>
+                    </p>
+                    <p class="card-text">
+                        <strong>Location: </strong>
+                        <span class="text-primary">{{character.location.name}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-body">
+                    <div class="accordion" id ="accordionLoc">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseAcc"
+                                    aria-expanded="false"
+                                    aria-controls="collapseAcc">
+                                    Locations</button>                              
+                            </h2>
+                            <div id="collapseAcc" data-bs-parent="#accordionLoc"
+                            class="accordion-collapse collapse">
+                        <div class="accordion-body overflow-y-scroll">
+                            <ul>
+                                @for (item of character.episode; track item) {
+                                    <li class="list-group-item small"> {{item}} </li>
+                                }
+                            </ul>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card-footer text-end">
+                    {{character.created | date: 'longDate'}}
+                </div>
+            </div>
+        </div>
+    </div>
+} @placeholder (minimum 500ms) {
+    <h2 class="text-center text-primary">Loading ...</h2>
+}
